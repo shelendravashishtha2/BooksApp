@@ -51,14 +51,11 @@ class _FogetPasswordBodyState extends State<FogetPasswordBody> {
         Padding(
           padding: const EdgeInsets.all(30.0),
           child: Center(
-            child:Hero(
-              tag: 'logo',
-              child: Text('Forget Password',style: TextStyle(
-                color:Colors.white,
-                fontSize: 30.0,
-                fontFamily: 'yellowtailregular',
-              ),
-              ),
+            child:Text('Forget Password',style: TextStyle(
+              color:Colors.white,
+              fontSize: 30.0,
+              fontFamily: 'yellowtailregular',
+            ),
             ),
           ),
         ),
@@ -74,7 +71,8 @@ class _FogetPasswordBodyState extends State<FogetPasswordBody> {
         PaddingButtons(text: 'Send Mail',onpressed: ()async{
 
             try {
-              await _auth.sendPasswordResetEmail(email: email);
+              email = (email==null) ? ' ': email;
+              await _auth.sendPasswordResetEmail(email: email.toLowerCase().trim());
               final snackbar = SnackBar(content: Text('An Email Is sent to you'),);
               Scaffold.of(context).showSnackBar(snackbar);
             }

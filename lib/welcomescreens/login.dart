@@ -66,13 +66,10 @@ class _PageTwoState extends State<PageTwo> {
                   onPressed: ()async{
                     Navigator.push(context, MaterialPageRoute(builder: (context){return ForgetPassword();}));
                   },
-                  child: Hero(
-                    tag: 'logo',
-                    child: Text(
-                        'Forgot Password',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+                  child: Text(
+                      'Forgot Password',
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -85,6 +82,8 @@ class _PageTwoState extends State<PageTwo> {
                   showWheel=true;
                 });
                 try{
+                  email = (email==null) ? ' ': email;
+                  password = (password==null) ? ' ': password;
                   final user = await _auth.signInWithEmailAndPassword(
                       email: email.toLowerCase().trim(), password: password);
                   if (user!=null && _auth.currentUser.emailVerified) {

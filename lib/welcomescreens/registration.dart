@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:miniproject/components/textfieldadder.dart';
 import 'package:miniproject/components/paddingbutton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:miniproject/mainscreen/primaryScreen.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 final _auth = FirebaseAuth.instance;
@@ -67,6 +66,9 @@ class _PageThreeState extends State<PageThree> {
                 text: 'Register',
                 onpressed: ()async{
                   try {
+                    email = (email==null) ? ' ': email;
+                    password = (password==null) ? ' ': password;
+
                     setState(() {
                       showWheel = true;
                     });
