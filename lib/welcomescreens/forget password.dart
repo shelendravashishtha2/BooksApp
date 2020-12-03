@@ -62,6 +62,7 @@ class _FogetPasswordBodyState extends State<FogetPasswordBody> {
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: TextFieldAdder(
+            textInputType: TextInputType.emailAddress,
             obscure: false,
               hint: 'Enter Your Email Id', onchanged: (value){
                 email = value;
