@@ -6,8 +6,8 @@ final kInputDecoration = InputDecoration(
     prefixIcon: null,
     filled: true,
     fillColor: Color(0xFF344955),
-    hintText: 'Enter Your Email',
-    hintStyle: TextStyle(
+    labelText: 'Enter Your Email',
+    labelStyle: TextStyle(
       color:Colors.white70,
     ),
     border: OutlineInputBorder(

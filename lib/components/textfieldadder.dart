@@ -27,7 +27,7 @@ class TextFieldAdder extends StatelessWidget {
           style: TextStyle(
             color:Colors.white,
           ),
-          decoration: kInputDecoration.copyWith(hintText:hint),
+          decoration: kInputDecoration.copyWith(labelText:hint),
         ),
       ),
     );
