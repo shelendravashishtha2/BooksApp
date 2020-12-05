@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "5218698987",
+    "firebase_url": "https://miniproject-3e599.firebaseio.com",
+    "project_id": "miniproject-3e599",
+    "storage_bucket": "miniproject-3e599.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5218698987:android:804475a68c227d833060ae",
+        "android_client_info": {
+          "package_name": "shelendravashishtha.miniproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5218698987-vd7e3981gg4rcu28iq681cg59mo4geu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAHP4X0j_tqQvEwiIm8xnk6uvBun6Ior4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5218698987-vd7e3981gg4rcu28iq681cg59mo4geu8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
