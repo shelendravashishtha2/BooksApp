@@ -7,9 +7,7 @@ import 'package:miniproject/mainscreen/primaryScreen.dart';
 import 'package:miniproject/welcomescreens/forget%20password.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-
-final _auth= FirebaseAuth.instance;
-
+final _auth = FirebaseAuth.instance;
 
 class PageTwo extends StatefulWidget {
   @override
@@ -17,10 +15,9 @@ class PageTwo extends StatefulWidget {
 }
 
 class _PageTwoState extends State<PageTwo> {
-
   String email;
   String password;
-  bool showWheel=false;
+  bool showWheel = false;
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -35,8 +32,8 @@ class _PageTwoState extends State<PageTwo> {
               child: Center(
                 child: Text(
                   'Log In',
-                  style:TextStyle(
-                    color:Colors.white,
+                  style: TextStyle(
+                    color: Colors.white,
                     fontSize: 30.0,
                     fontFamily: 'yellowtailregular',
                   ),
@@ -47,13 +44,13 @@ class _PageTwoState extends State<PageTwo> {
               hint: 'Enter Your Email',
               obscure: false,
               textInputType: TextInputType.emailAddress,
-              onchanged: (value){
+              onchanged: (value) {
                 email = value;
               },
             ),
             TextFieldAdder(
               hint: 'Enter Your Password',
-              onchanged:(value){
+              onchanged: (value) {
                 password = value;
               },
               obscure: true,
@@ -61,13 +58,16 @@ class _PageTwoState extends State<PageTwo> {
             Align(
               alignment: Alignment.centerRight,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal:40.0),
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
                 child: TextButton(
-                  onPressed: ()async{
-                    Navigator.push(context, MaterialPageRoute(builder: (context){return ForgetPassword();}));
+                  onPressed: () async {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ForgetPassword();
+                    }));
                   },
                   child: Text(
-                      'Forgot Password',
+                    'Forgot Password',
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -77,32 +77,36 @@ class _PageTwoState extends State<PageTwo> {
             ),
             PaddingButtons(
               text: 'Log In',
-              onpressed: ()async{
+              onpressed: () async {
                 setState(() {
-                  showWheel=true;
+                  showWheel = true;
                 });
-                try{
-                  email = (email==null) ? ' ': email;
-                  password = (password==null) ? ' ': password;
+                try {
+                  email = (email == null) ? ' ' : email;
+                  password = (password == null) ? ' ' : password;
                   final user = await _auth.signInWithEmailAndPassword(
                       email: email.toLowerCase().trim(), password: password);
-                  if (user!=null && _auth.currentUser.emailVerified) {
+                  if (user != null && _auth.currentUser.emailVerified) {
                     setState(() {
-                      showWheel=false;
+                      showWheel = false;
                     });
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return FrontPage();
                     }));
-                  }
-                  else{
+                  } else {
                     setState(() {
-                      showWheel=true;
+                      showWheel = false;
                     });
-                    final snackbar = SnackBar(content: Text('email is not verified',style: TextStyle(color: Colors.black),),);
+                    final snackbar = SnackBar(
+                      content: Text(
+                        'email is not verified',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    );
                     Scaffold.of(context).showSnackBar(snackbar);
                   }
-                }
-                catch(e){
+                } catch (e) {
                   setState(() {
                     showWheel = false;
                   });

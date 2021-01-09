@@ -310,7 +310,7 @@ class _PageThreeState extends State<PageThree> {
                       });
                       Dio dio = new Dio();
                       FormData formData = FormData.fromMap({
-                        "user_mail": email,
+                        "user_mail": email.toLowerCase().trim(),
                         "user_name": name,
                         "contact_number": contactNumber,
                         "roll_no": rollNo,
@@ -320,52 +320,53 @@ class _PageThreeState extends State<PageThree> {
                         ),
                       });
                       dio.options.headers["Authorization"] =
-                          'Token 6e2b45c516600ae62575504eb5b5fbaa65c26c66';
-                      var response = await dio.post(
-                        'https://miniproject132.pythonanywhere.com/api/user/',
-                        data: formData,
-                      );
-                      print(response.statusCode);
-                      if (response.statusCode == 201) {
-                        try {
-                          email = (email == null) ? ' ' : email;
-                          password = (password == null) ? ' ' : password;
+                          'Token  613f83c277f3530efee673393e018c390af3afa1a';
+                      try {
+                        var response = await dio.post(
+                          'https://miniproject132.pythonanywhere.com/api/user/',
+                          data: formData,
+                        );
+                        if (response.statusCode == 201) {
+                          try {
+                            email = (email == null) ? ' ' : email;
+                            password = (password == null) ? ' ' : password;
 
-                          setState(() {
-                            showWheel = true;
-                          });
-                          final user =
-                              await _auth.createUserWithEmailAndPassword(
-                                  email: (email != null)
-                                      ? email.toLowerCase().trim()
-                                      : email,
-                                  password: password);
-                          await user.user.sendEmailVerification();
-                          if (user != null) {
+                            setState(() {
+                              showWheel = true;
+                            });
+                            final user =
+                                await _auth.createUserWithEmailAndPassword(
+                                    email: (email != null)
+                                        ? email.toLowerCase().trim()
+                                        : email,
+                                    password: password);
+                            await user.user.sendEmailVerification();
+                            if (user != null) {
+                              setState(() {
+                                showWheel = false;
+                              });
+                              final snackbar = SnackBar(
+                                content: Text(
+                                  'email verification is sent to you',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              );
+                              Scaffold.of(context).showSnackBar(snackbar);
+                            }
+                          } catch (e) {
                             setState(() {
                               showWheel = false;
                             });
                             final snackbar = SnackBar(
-                              content: Text(
-                                'email verification is sent to you',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            );
+                                content: Text(
+                              e.message,
+                              style: TextStyle(color: Colors.black),
+                            ));
                             Scaffold.of(context).showSnackBar(snackbar);
                           }
-                        } catch (e) {
-                          setState(() {
-                            showWheel = false;
-                          });
-                          final snackbar = SnackBar(
-                              content: Text(
-                            e.message,
-                            style: TextStyle(color: Colors.black),
-                          ));
-                          Scaffold.of(context).showSnackBar(snackbar);
                         }
-                      } else {
-                        print(response.statusMessage);
+                      } catch (e) {
+                        print(e);
                         setState(() {
                           showWheel = false;
                         });
