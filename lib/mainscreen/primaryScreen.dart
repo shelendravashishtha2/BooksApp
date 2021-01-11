@@ -212,201 +212,194 @@ class _FrontPageState extends State<FrontPage> {
             onWillPop: () {
               exit();
             },
-            child: SafeArea(
-              child: Scaffold(
-                drawer: Drawer(
-                  child: ListView(
-                    children: [
-                      Container(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 20.0,
+            child: Scaffold(
+              drawer: Drawer(
+                child: ListView(
+                  children: [
+                    Container(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Material(
+                            borderRadius: BorderRadius.circular(70.0),
+                            elevation: 5.0,
+                            child: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 70.0,
+                              backgroundImage: NetworkImage(
+                                userDetails[1],
+                              ),
                             ),
-                            Material(
-                              borderRadius: BorderRadius.circular(70.0),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(
+                            'Hello ${userDetails[0].split(" ")[0]} ',
+                            style: TextStyle(
+                                color: Colors.white, fontSize: height * 0.03),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          SizedBox(
+                            height: 1.0,
+                            child: Divider(
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    ListTile(
+                      tileColor: Color(0xFF344955),
+                      onTap: () {
+                        _auth.signOut();
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return WelcomeScreen();
+                        }));
+                      },
+                      leading: Icon(
+                        Icons.clear,
+                        color: Colors.redAccent,
+                      ),
+                      title: Text(
+                        'Log Out',
+                        style:
+                            TextStyle(color: Colors.redAccent, fontSize: 18.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              backgroundColor: kprimaryColor,
+              body: Builder(
+                builder: (context) => SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Stack(
+                        overflow: Overflow.visible,
+                        children: [
+                          ClipPath(
+                            clipper: MyClipping(),
+                            child: Container(
+                              width: width,
+                              height: height / 2.5,
+                              color: Color(0xFF344955),
+                            ),
+                          ),
+                          Positioned(
+                            top: height * 0.03,
+                            left: width * 0.05,
+                            child: IconButton(
+                              onPressed: () {
+                                Scaffold.of(context).openDrawer();
+                              },
+                              icon: Icon(Icons.clear_all_outlined),
+                              iconSize: 24.0,
+                            ),
+                          ),
+                          Positioned(
+                            top: height * 0.03,
+                            right: width * 0.05,
+                            child: Material(
                               elevation: 5.0,
+                              borderRadius: BorderRadius.circular(30.0),
                               child: CircleAvatar(
                                 backgroundColor: Colors.white,
-                                radius: 70.0,
+                                radius: 30.0,
                                 backgroundImage: NetworkImage(
                                   userDetails[1],
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Text(
-                              'Hello ${userDetails[0].split(" ")[0]} ',
+                          ),
+                          Positioned(
+                            top: height * 0.12,
+                            left: width * 0.06,
+                            child: Text(
+                              'Hello ${userDetails[0].split(" ")[0]} !',
                               style: TextStyle(
                                   color: Colors.white, fontSize: height * 0.03),
                             ),
-                            SizedBox(
-                              height: 10.0,
+                          ),
+                          Positioned(
+                            top: height * 0.17,
+                            left: width * 0.1,
+                            child: Text(
+                              'welcome to your book store ',
+                              style: TextStyle(
+                                  color: Colors.grey.shade200, fontSize: 15.0),
                             ),
-                            SizedBox(
-                              height: 1.0,
-                              child: Divider(
-                                color: Colors.white,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      ListTile(
-                        tileColor: Color(0xFF344955),
-                        onTap: () {
-                          _auth.signOut();
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return WelcomeScreen();
-                          }));
-                        },
-                        leading: Icon(
-                          Icons.clear,
-                          color: Colors.redAccent,
-                        ),
-                        title: Text(
-                          'Log Out',
-                          style: TextStyle(
-                              color: Colors.redAccent, fontSize: 18.0),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                backgroundColor: kprimaryColor,
-                body: Builder(
-                  builder: (context) => SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Stack(
-                          overflow: Overflow.visible,
-                          children: [
-                            ClipPath(
-                              clipper: MyClipping(),
-                              child: Container(
-                                width: width,
-                                height: height / 2.5,
-                                color: Color(0xFF344955),
-                              ),
-                            ),
-                            Positioned(
-                              top: height * 0.03,
-                              left: width * 0.05,
-                              child: IconButton(
-                                onPressed: () {
-                                  Scaffold.of(context).openDrawer();
-                                },
-                                icon: Icon(Icons.clear_all_outlined),
-                                iconSize: 24.0,
-                              ),
-                            ),
-                            Positioned(
-                              top: height * 0.03,
-                              right: width * 0.05,
-                              child: Material(
-                                elevation: 5.0,
-                                borderRadius: BorderRadius.circular(30.0),
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 30.0,
-                                  backgroundImage: NetworkImage(
-                                    userDetails[1],
-                                  ),
+                          ),
+                          Positioned(
+                            top: height / 3.5,
+                            width: width / 1.2,
+                            left: width * 0.07,
+                            child: TextField(
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              top: height * 0.12,
-                              left: width * 0.06,
-                              child: Text(
-                                'Hello ${userDetails[0].split(" ")[0]} !',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: height * 0.03),
-                              ),
-                            ),
-                            Positioned(
-                              top: height * 0.17,
-                              left: width * 0.1,
-                              child: Text(
-                                'welcome to your book store ',
-                                style: TextStyle(
-                                    color: Colors.grey.shade200,
-                                    fontSize: 15.0),
-                              ),
-                            ),
-                            Positioned(
-                              top: height / 3.5,
-                              width: width / 1.2,
-                              left: width * 0.07,
-                              child: TextField(
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  onChanged: (value) {},
-                                  decoration: InputDecoration(
-                                      filled: true,
-                                      suffixIcon: GestureDetector(
-                                        onTap: () {},
-                                        child: Icon(
-                                          Icons.search,
-                                          color: kprimaryColor,
-                                        ),
+                                onChanged: (value) {},
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    suffixIcon: GestureDetector(
+                                      onTap: () {},
+                                      child: Icon(
+                                        Icons.search,
+                                        color: kprimaryColor,
                                       ),
-                                      fillColor: Colors.grey.shade200,
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(24.0),
-                                        borderSide: BorderSide(
-                                            color: Color(0xFF344955),
-                                            width: 1.0),
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 20.0, horizontal: 20.0))),
-                            )
-                          ],
+                                    ),
+                                    fillColor: Colors.grey.shade200,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24.0),
+                                      borderSide: BorderSide(
+                                          color: Color(0xFF344955), width: 1.0),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 20.0, horizontal: 20.0))),
+                          )
+                        ],
+                      ),
+                      if (cseList.length > 0)
+                        SubjectList(
+                          width: width,
+                          height: height,
+                          branchName: 'CSE (Computer Science and Engineering)',
+                          subjectDetail: cseList,
                         ),
-                        if (cseList.length > 0)
-                          SubjectList(
-                            width: width,
-                            height: height,
-                            branchName:
-                                'CSE (Computer Science and Engineering)',
-                            subjectDetail: cseList,
-                          ),
-                        if (eceList.length > 0)
-                          SubjectList(
-                            width: width,
-                            height: height,
-                            branchName: 'ECE (Electrical Engineering)',
-                            subjectDetail: eceList,
-                          ),
-                        if (itList.length > 0)
-                          SubjectList(
-                            width: width,
-                            height: height,
-                            branchName: 'IT (Information Technology)',
-                            subjectDetail: itList,
-                          ),
-                        if (mechanicalList.length > 0)
-                          SubjectList(
-                            width: width,
-                            height: height,
-                            branchName: 'Mechanical Engineering',
-                            subjectDetail: mechanicalList,
-                          ),
-                        if (elecList.length > 0)
-                          SubjectList(
-                            width: width,
-                            height: height,
-                            branchName: 'Electrical Engineering',
-                            subjectDetail: elecList,
-                          ),
-                      ],
-                    ),
+                      if (eceList.length > 0)
+                        SubjectList(
+                          width: width,
+                          height: height,
+                          branchName: 'ECE (Electrical Engineering)',
+                          subjectDetail: eceList,
+                        ),
+                      if (itList.length > 0)
+                        SubjectList(
+                          width: width,
+                          height: height,
+                          branchName: 'IT (Information Technology)',
+                          subjectDetail: itList,
+                        ),
+                      if (mechanicalList.length > 0)
+                        SubjectList(
+                          width: width,
+                          height: height,
+                          branchName: 'Mechanical Engineering',
+                          subjectDetail: mechanicalList,
+                        ),
+                      if (elecList.length > 0)
+                        SubjectList(
+                          width: width,
+                          height: height,
+                          branchName: 'Electrical Engineering',
+                          subjectDetail: elecList,
+                        ),
+                    ],
                   ),
                 ),
               ),
