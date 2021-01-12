@@ -320,7 +320,7 @@ class _PageThreeState extends State<PageThree> {
                         ),
                       });
                       dio.options.headers["Authorization"] =
-                          'Token  613f83c277f3530efee673393e018c390af3afa1a';
+                          'Token 613f83c277f3530efee673393e018c390af3afa1';
                       try {
                         var response = await dio.post(
                           'https://miniproject132.pythonanywhere.com/api/user/',

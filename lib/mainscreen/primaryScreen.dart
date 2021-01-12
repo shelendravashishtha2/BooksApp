@@ -2,12 +2,11 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:miniproject/constants.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:miniproject/BooksRegistration/BooksRegistration.dart';
 import 'package:miniproject/welcomescreens/welcomescreen.dart';
 
 class FrontPage extends StatefulWidget {
@@ -213,68 +212,7 @@ class _FrontPageState extends State<FrontPage> {
               exit();
             },
             child: Scaffold(
-              drawer: Drawer(
-                child: ListView(
-                  children: [
-                    Container(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Material(
-                            borderRadius: BorderRadius.circular(70.0),
-                            elevation: 5.0,
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 70.0,
-                              backgroundImage: NetworkImage(
-                                userDetails[1],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Text(
-                            'Hello ${userDetails[0].split(" ")[0]} ',
-                            style: TextStyle(
-                                color: Colors.white, fontSize: height * 0.03),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          SizedBox(
-                            height: 1.0,
-                            child: Divider(
-                              color: Colors.white,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    ListTile(
-                      tileColor: Color(0xFF344955),
-                      onTap: () {
-                        _auth.signOut();
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return WelcomeScreen();
-                        }));
-                      },
-                      leading: Icon(
-                        Icons.clear,
-                        color: Colors.redAccent,
-                      ),
-                      title: Text(
-                        'Log Out',
-                        style:
-                            TextStyle(color: Colors.redAccent, fontSize: 18.0),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              drawer: DrawerBuilder(height, context),
               backgroundColor: kprimaryColor,
               body: Builder(
                 builder: (context) => SingleChildScrollView(
@@ -292,7 +230,7 @@ class _FrontPageState extends State<FrontPage> {
                             ),
                           ),
                           Positioned(
-                            top: height * 0.03,
+                            top: height * 0.055,
                             left: width * 0.05,
                             child: IconButton(
                               onPressed: () {
@@ -303,7 +241,7 @@ class _FrontPageState extends State<FrontPage> {
                             ),
                           ),
                           Positioned(
-                            top: height * 0.03,
+                            top: height * 0.055,
                             right: width * 0.05,
                             child: Material(
                               elevation: 5.0,
@@ -318,7 +256,7 @@ class _FrontPageState extends State<FrontPage> {
                             ),
                           ),
                           Positioned(
-                            top: height * 0.12,
+                            top: height * 0.15,
                             left: width * 0.06,
                             child: Text(
                               'Hello ${userDetails[0].split(" ")[0]} !',
@@ -327,7 +265,7 @@ class _FrontPageState extends State<FrontPage> {
                             ),
                           ),
                           Positioned(
-                            top: height * 0.17,
+                            top: height * 0.19,
                             left: width * 0.1,
                             child: Text(
                               'welcome to your book store ',
@@ -340,27 +278,29 @@ class _FrontPageState extends State<FrontPage> {
                             width: width / 1.2,
                             left: width * 0.07,
                             child: TextField(
-                                style: TextStyle(
-                                  color: Colors.black,
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              onChanged: (value) {},
+                              decoration: InputDecoration(
+                                filled: true,
+                                suffixIcon: GestureDetector(
+                                  onTap: () {},
+                                  child: Icon(
+                                    Icons.search,
+                                    color: kprimaryColor,
+                                  ),
                                 ),
-                                onChanged: (value) {},
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    suffixIcon: GestureDetector(
-                                      onTap: () {},
-                                      child: Icon(
-                                        Icons.search,
-                                        color: kprimaryColor,
-                                      ),
-                                    ),
-                                    fillColor: Colors.grey.shade200,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24.0),
-                                      borderSide: BorderSide(
-                                          color: Color(0xFF344955), width: 1.0),
-                                    ),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 20.0, horizontal: 20.0))),
+                                fillColor: Colors.grey.shade200,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(24.0),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFF344955), width: 1.0),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 20.0, horizontal: 20.0),
+                              ),
+                            ),
                           )
                         ],
                       ),
@@ -406,6 +346,101 @@ class _FrontPageState extends State<FrontPage> {
             ),
           );
   }
+
+  // ignore: non_constant_identifier_names
+  Drawer DrawerBuilder(double height, BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          Container(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20.0,
+                ),
+                CircleAvatar(
+                  radius: 60.0,
+                  backgroundColor: Colors.teal,
+                  child: CircleAvatar(
+                    radius: 58.0,
+                    backgroundColor: kprimaryColor,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 54.0,
+                      backgroundImage: NetworkImage(
+                        userDetails[1],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  '${userDetails[0].split(" ")[0]} ',
+                  style:
+                      TextStyle(color: Colors.white, fontSize: height * 0.03),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                SizedBox(
+                  height: 1.0,
+                  child: Divider(
+                    color: Colors.white,
+                  ),
+                )
+              ],
+            ),
+          ),
+          ListTile(
+            tileColor: Color(0xFF344955),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return BookRegistration();
+                  },
+                ),
+              );
+            },
+            leading: Icon(
+              Icons.book_outlined,
+              color: Colors.white,
+            ),
+            title: Text(
+              'Book Registration',
+              style: TextStyle(color: Colors.white, fontSize: 18.0),
+            ),
+          ),
+          SizedBox(
+            height: 1.0,
+            child: Divider(
+              color: Colors.grey[150],
+            ),
+          ),
+          ListTile(
+            tileColor: Color(0xFF344955),
+            onTap: () {
+              _auth.signOut();
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return WelcomeScreen();
+              }));
+            },
+            leading: Icon(
+              Icons.clear,
+              color: Colors.redAccent,
+            ),
+            title: Text(
+              'Log Out',
+              style: TextStyle(color: Colors.redAccent, fontSize: 18.0),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class SubjectList extends StatelessWidget {
@@ -426,9 +461,11 @@ class SubjectList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.all(14.0),
+            padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -444,7 +481,7 @@ class SubjectList extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 1.0),
             child: Container(
               child: GridView.builder(
                 physics: NeverScrollableScrollPhysics(),
