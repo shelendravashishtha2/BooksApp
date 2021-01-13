@@ -6,7 +6,10 @@ import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:miniproject/constants.dart';
-import 'package:miniproject/BooksRegistration/BooksRegistration.dart';
+import 'package:transparent_image/transparent_image.dart';
+
+import 'package:miniproject/mainscreen/BooksList/BooksList.dart';
+import 'package:miniproject/mainscreen/BooksRegistration/BooksRegistration.dart';
 import 'package:miniproject/welcomescreens/welcomescreen.dart';
 
 class FrontPage extends StatefulWidget {
@@ -165,20 +168,39 @@ class _FrontPageState extends State<FrontPage> {
         setState(() {
           switch (res[i]["branch_text"]["branch_text"]) {
             case 'CSE':
-              cseList.add([res[i]["category_text"], res[i]["category_image"]]);
+              cseList.add([
+                res[i]["category_text"],
+                res[i]["category_image"],
+                res[i]["id"]
+              ]);
               break;
             case 'Information Technology':
-              itList.add([res[i]["category_text"], res[i]["category_image"]]);
+              itList.add([
+                res[i]["category_text"],
+                res[i]["category_image"],
+                res[i]["id"]
+              ]);
               break;
             case 'ECE':
-              eceList.add([res[i]["category_text"], res[i]["category_image"]]);
+              eceList.add([
+                res[i]["category_text"],
+                res[i]["category_image"],
+                res[i]["id"]
+              ]);
               break;
             case 'MECHANICAL':
-              mechanicalList
-                  .add([res[i]["category_text"], res[i]["category_image"]]);
+              mechanicalList.add([
+                res[i]["category_text"],
+                res[i]["category_image"],
+                res[i]["id"]
+              ]);
               break;
             case 'ELECTRICAL':
-              elecList.add([res[i]["category_text"], res[i]["category_image"]]);
+              elecList.add([
+                res[i]["category_text"],
+                res[i]["category_image"],
+                res[i]["id"]
+              ]);
               break;
           }
         });
@@ -315,7 +337,8 @@ class _FrontPageState extends State<FrontPage> {
                         SubjectList(
                           width: width,
                           height: height,
-                          branchName: 'ECE (Electrical Engineering)',
+                          branchName:
+                              'ECE (Electronics and Communication Engineering)',
                           subjectDetail: eceList,
                         ),
                       if (itList.length > 0)
@@ -360,15 +383,19 @@ class _FrontPageState extends State<FrontPage> {
                 ),
                 CircleAvatar(
                   radius: 60.0,
-                  backgroundColor: Colors.teal,
+                  backgroundColor: Colors.yellow.shade200,
                   child: CircleAvatar(
                     radius: 58.0,
                     backgroundColor: kprimaryColor,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 54.0,
-                      backgroundImage: NetworkImage(
-                        userDetails[1],
+                    child: Material(
+                      elevation: 7.0,
+                      borderRadius: BorderRadius.circular(54.0),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 54.0,
+                        backgroundImage: NetworkImage(
+                          userDetails[1],
+                        ),
                       ),
                     ),
                   ),
@@ -459,42 +486,51 @@ class SubjectList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: width - 30.0,
-                  child: Text(
-                    '$branchName',
-                    style: TextStyle(fontSize: 22.0),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 1.0),
-            child: Container(
-              child: GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10.0,
-                  mainAxisSpacing: 10.0,
-                  childAspectRatio: 1,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: width - 30.0,
+                child: Text(
+                  '$branchName',
+                  style: TextStyle(fontSize: 22.0),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                itemCount: subjectDetail.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 1.0),
+          child: Container(
+            child: GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 10.0,
+                childAspectRatio: 1,
+              ),
+              itemCount: subjectDetail.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return BooksList(
+                        categoryId: subjectDetail[index][2],
+                        subjectName: subjectDetail[index][0],
+                      );
+                    }));
+                  },
+                  child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(
@@ -506,13 +542,32 @@ class SubjectList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(5.0),
-                          child: Image.network(
-                            subjectDetail[index][1],
-                            fit: BoxFit.fill,
-                            width: width / 2.5,
-                            height: height / 6.5,
+                        Container(
+                          height: height / 6.5,
+                          width: width / 2.5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(23.0),
+                          ),
+                          child: Stack(
+                            children: <Widget>[
+                              Center(
+                                child: CircularProgressIndicator(
+                                  backgroundColor: Colors.white,
+                                ),
+                              ),
+                              Center(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(23.0),
+                                  child: FadeInImage.memoryNetwork(
+                                    placeholder: kTransparentImage,
+                                    image: subjectDetail[index][1],
+                                    height: height / 6.5,
+                                    width: width / 2.5,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(
@@ -534,13 +589,13 @@ class SubjectList extends StatelessWidget {
                         ),
                       ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }

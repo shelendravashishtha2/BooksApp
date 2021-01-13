@@ -37,7 +37,7 @@ dependencies:
   get: ^3.24.0
   file_picker: ^2.1.5+1
   get_it: ^5.0.3
-
+  transparent_image: ^1.0.0
 
 dev_dependencies:
   flutter_test:

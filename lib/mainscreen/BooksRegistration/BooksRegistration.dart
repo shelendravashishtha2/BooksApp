@@ -9,7 +9,6 @@ import 'package:miniproject/components/textfieldadder.dart';
 import 'package:miniproject/constants.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class BookRegistration extends StatefulWidget {
@@ -33,6 +32,7 @@ class _BookRegistrationState extends State<BookRegistration> {
   List<List<dynamic>> categoryList = [];
   Map<String, dynamic> categoryMap = {};
   int selectedCategory = 1;
+  String description;
 
   Future getImageFromGallery() async {
     final pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
@@ -106,13 +106,14 @@ class _BookRegistrationState extends State<BookRegistration> {
         ),
       ),
       body: (categoryList.length == 0)
-          ? SpinKitDualRing(
-              color: Colors.white,
-              size: 22.0,
+          ? Center(
+              child: SpinKitFadingCube(
+                color: Colors.white,
+                size: 18.0,
+              ),
             )
           : ModalProgressHUD(
               inAsyncCall: showWheel,
-              progressIndicator: CircularProgressIndicator(),
               child: Builder(
                 builder: (context) => SingleChildScrollView(
                   child: Column(
@@ -344,6 +345,28 @@ class _BookRegistrationState extends State<BookRegistration> {
                         ),
                       ),
                       Padding(
+                        padding: EdgeInsets.only(top: height * 0.0001),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: TextFormField(
+                            maxLines: 7,
+                            enableSuggestions: false,
+                            cursorColor: Colors.white,
+                            onChanged: (value) {
+                              setState(() {
+                                description = value;
+                              });
+                            },
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                            decoration: kInputDecoration.copyWith(
+                                labelText: 'Give Descrption Of the Book'),
+                          ),
+                        ),
+                      ),
+                      Padding(
                         padding: EdgeInsets.only(bottom: 20.0),
                         child: PaddingButtons(
                           text: 'Upload Book',
@@ -367,6 +390,7 @@ class _BookRegistrationState extends State<BookRegistration> {
                                 showWheel = true;
                               });
                               print(FirebaseAuth.instance.currentUser.email);
+                              print(description);
                               Dio dio = new Dio();
                               FormData formData = FormData.fromMap({
                                 "book_serial_id": bookSerialId,
@@ -384,7 +408,8 @@ class _BookRegistrationState extends State<BookRegistration> {
                                 "author": author,
                                 "publication": publication,
                                 "price": price,
-                                "no_of_pages": noOfPages
+                                "no_of_pages": noOfPages,
+                                "book_description": description
                               });
                               dio.options.headers["Authorization"] =
                                   'Token 613f83c277f3530efee673393e018c390af3afa1';
