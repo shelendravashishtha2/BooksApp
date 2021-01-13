@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:miniproject/constants.dart';
 import 'package:miniproject/mainscreen/primaryScreen.dart';
 import 'package:miniproject/welcomescreens/welcomescreen.dart';
-import 'chatsystem/chatscreen.dart';
 
 final _auth = FirebaseAuth.instance;
 User loggedInUser;
