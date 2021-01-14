@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:miniproject/constants.dart';
+import 'package:miniproject/mainscreen/MyBooks/MyBooks.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'package:miniproject/mainscreen/BooksList/BooksList.dart';
@@ -438,6 +439,33 @@ class _FrontPageState extends State<FrontPage> {
             ),
             title: Text(
               'Book Registration',
+              style: TextStyle(color: Colors.white, fontSize: 18.0),
+            ),
+          ),
+          SizedBox(
+            height: 1.0,
+            child: Divider(
+              color: Colors.grey[150],
+            ),
+          ),
+          ListTile(
+            tileColor: Color(0xFF344955),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return MyBooks();
+                  },
+                ),
+              );
+            },
+            leading: Icon(
+              Icons.upload_file,
+              color: Colors.white,
+            ),
+            title: Text(
+              'My Books',
               style: TextStyle(color: Colors.white, fontSize: 18.0),
             ),
           ),
