@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -5,16 +6,16 @@ import 'package:miniproject/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class BooksList extends StatefulWidget {
+class MyBooks extends StatefulWidget {
   final String subjectName;
   final int categoryId;
-  BooksList({this.subjectName, this.categoryId});
+  MyBooks({this.subjectName, this.categoryId});
 
   @override
-  _BooksListState createState() => _BooksListState();
+  _MyBooksState createState() => _MyBooksState();
 }
 
-class _BooksListState extends State<BooksList> {
+class _MyBooksState extends State<MyBooks> {
   List<dynamic> categoryBooks = [];
   int loadValue = 0;
   makeRequest() async {
@@ -23,7 +24,7 @@ class _BooksListState extends State<BooksList> {
       "Authorization": "Token  613f83c277f3530efee673393e018c390af3afa1"
     };
     Response response = await dio.get(
-        'https://miniproject132.pythonanywhere.com/api/book?book_category=${widget.categoryId}');
+        'https://miniproject132.pythonanywhere.com/api/book?sold_by=${FirebaseAuth.instance.currentUser.email}');
     var res = response.data;
     setState(() {
       loadValue = 1;
@@ -58,7 +59,7 @@ class _BooksListState extends State<BooksList> {
         backgroundColor: kprimaryColor,
         elevation: 1.0,
         centerTitle: true,
-        title: Text(widget.subjectName),
+        title: Text('My Books'),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
