@@ -8,8 +8,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:miniproject/SharedPreferences/SharedPreferences.dart';
 import 'package:miniproject/constants.dart';
 import 'package:miniproject/mainscreen/MyBooks/MyBooks.dart';
+import 'package:miniproject/mainscreen/MyCart/MyCart.dart';
 import 'package:transparent_image/transparent_image.dart';
-
+import 'package:permission_handler/permission_handler.dart';
 import 'package:miniproject/mainscreen/BooksList/BooksList.dart';
 import 'package:miniproject/mainscreen/BooksRegistration/BooksRegistration.dart';
 import 'package:miniproject/welcomescreens/welcomescreen.dart';
@@ -211,10 +212,17 @@ class _FrontPageState extends State<FrontPage> {
     }
   }
 
+  getPermission() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+    ].request();
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getPermission();
     makeRequest();
     makeUserRequest();
   }
@@ -467,7 +475,34 @@ class _FrontPageState extends State<FrontPage> {
               color: Colors.white,
             ),
             title: Text(
-              'My Books',
+              'My Uploads',
+              style: TextStyle(color: Colors.white, fontSize: 18.0),
+            ),
+          ),
+          SizedBox(
+            height: 1.0,
+            child: Divider(
+              color: Colors.grey[150],
+            ),
+          ),
+          ListTile(
+            tileColor: Color(0xFF344955),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return MyCart();
+                  },
+                ),
+              );
+            },
+            leading: Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+            ),
+            title: Text(
+              'My Cart',
               style: TextStyle(color: Colors.white, fontSize: 18.0),
             ),
           ),
