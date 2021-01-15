@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:miniproject/SharedPreferences/SharedPreferences.dart';
 import 'package:miniproject/constants.dart';
 import 'package:miniproject/mainscreen/MyBooks/MyBooks.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -161,7 +162,8 @@ class _FrontPageState extends State<FrontPage> {
         'Authorization': 'Token  613f83c277f3530efee673393e018c390af3afa1',
       },
     );
-    print(response.body);
+    print(await getUserEmail());
+    print(await getUserPassword());
     if (response.statusCode == 200) {
       String data = response.body;
       List<dynamic> res = jsonDecode(data);
