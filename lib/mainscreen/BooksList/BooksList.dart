@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:miniproject/constants.dart';
 import 'package:dio/dio.dart';
+import 'package:miniproject/mainscreen/BooksDescriptionScreen/DescriptionScreen.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class BooksList extends StatefulWidget {
@@ -35,7 +36,16 @@ class _BooksListState extends State<BooksList> {
           res[i]["price"],
           res[i]["bought_by"].length,
           res[i]["book_image"],
-          res[i]["author"]
+          res[i]["author"],
+          res[i]["sold_by"],
+          res[i]["book_description"],
+          res[i]["book_pdf"],
+          res[i]["publish_date"],
+          res[i]["publication"],
+          res[i]["no_of_pages"],
+          res[i]["book_serial_id"],
+          res[i]["bought_by"],
+          res[i]["book_category"],
         ]);
       });
     }
@@ -100,6 +110,28 @@ class _BooksListState extends State<BooksList> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 4.0, vertical: 1.0),
                       child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return DescriptionScreen(
+                                  imageUrl: categoryBooks[index][3],
+                                  price: categoryBooks[index][1],
+                                  bookName: categoryBooks[index][0],
+                                  bookPdf: categoryBooks[index][7],
+                                  description: categoryBooks[index][6],
+                                  noOfPages: categoryBooks[index][10],
+                                  publishDate: categoryBooks[index][8],
+                                  serialId: categoryBooks[index][11],
+                                  soldBy: categoryBooks[index][5],
+                                  boughtBy: categoryBooks[index][12],
+                                  categoryId: categoryBooks[index][13],
+                                );
+                              },
+                            ),
+                          );
+                        },
                         child: Material(
                           elevation: 1.0,
                           borderRadius: BorderRadius.circular(23.0),

@@ -7,16 +7,16 @@ import 'package:dio/dio.dart';
 import 'package:miniproject/mainscreen/BooksDescriptionScreen/DescriptionScreen.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class MyBooks extends StatefulWidget {
+class MyCart extends StatefulWidget {
   final String subjectName;
   final int categoryId;
-  MyBooks({this.subjectName, this.categoryId});
+  MyCart({this.subjectName, this.categoryId});
 
   @override
-  _MyBooksState createState() => _MyBooksState();
+  _MyCartState createState() => _MyCartState();
 }
 
-class _MyBooksState extends State<MyBooks> {
+class _MyCartState extends State<MyCart> {
   List<dynamic> categoryBooks = [];
   int loadValue = 0;
   makeRequest() async {
@@ -25,7 +25,7 @@ class _MyBooksState extends State<MyBooks> {
       "Authorization": "Token  613f83c277f3530efee673393e018c390af3afa1"
     };
     Response response = await dio.get(
-        'https://miniproject132.pythonanywhere.com/api/book?sold_by=${FirebaseAuth.instance.currentUser.email}');
+        'https://miniproject132.pythonanywhere.com/api/book?bought_by=${FirebaseAuth.instance.currentUser.email}');
     var res = response.data;
     setState(() {
       loadValue = 1;
@@ -69,7 +69,7 @@ class _MyBooksState extends State<MyBooks> {
         backgroundColor: kprimaryColor,
         elevation: 1.0,
         centerTitle: true,
-        title: Text('My Books'),
+        title: Text('My Cart'),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
