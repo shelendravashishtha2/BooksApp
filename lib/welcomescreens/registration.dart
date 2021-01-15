@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:miniproject/SharedPreferences/SharedPreferences.dart';
 import 'package:miniproject/constants.dart';
 
 import 'package:miniproject/components/textfieldadder.dart';
@@ -345,6 +346,8 @@ class _PageThreeState extends State<PageThree> {
                               setState(() {
                                 showWheel = false;
                               });
+                              setUserEmail(email);
+                              setUserPassword(password);
                               final snackbar = SnackBar(
                                 content: Text(
                                   'email verification is sent to you',
