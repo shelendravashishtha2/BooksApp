@@ -9,3 +9,8 @@ Flutter email and password method for User Authentication
 # Database Api 
 
 Api developed in latest web technology Django in Python Language Using Python Language 
+
+# Payment Integration
+
+RazorPay Payment Integration, UPI, NetBenking etc Accepted
+
