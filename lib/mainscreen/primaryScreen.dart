@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:miniproject/MyProfile/MyProfile.dart';
 import 'package:miniproject/SharedPreferences/SharedPreferences.dart';
 import 'package:miniproject/constants.dart';
 import 'package:miniproject/mainscreen/MyBooks/MyBooks.dart';
@@ -438,6 +439,36 @@ class _FrontPageState extends State<FrontPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
+                    return MyProfile(
+                      userImage: userDetails[1],
+                      userName: userDetails[00],
+                    );
+                  },
+                ),
+              );
+            },
+            leading: Icon(
+              CupertinoIcons.profile_circled,
+              color: Colors.white,
+            ),
+            title: Text(
+              'My Profile',
+              style: TextStyle(color: Colors.white, fontSize: 18.0),
+            ),
+          ),
+          SizedBox(
+            height: 1.0,
+            child: Divider(
+              color: Colors.grey[150],
+            ),
+          ),
+          ListTile(
+            tileColor: Color(0xFF344955),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
                     return BookRegistration();
                   },
                 ),
@@ -471,7 +502,7 @@ class _FrontPageState extends State<FrontPage> {
               );
             },
             leading: Icon(
-              Icons.upload_file,
+              CupertinoIcons.book_circle,
               color: Colors.white,
             ),
             title: Text(
@@ -587,13 +618,17 @@ class SubjectList extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return BooksList(
-                        categoryId: subjectDetail[index][2],
-                        subjectName: subjectDetail[index][0],
-                      );
-                    }));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return BooksList(
+                            categoryId: subjectDetail[index][2],
+                            subjectName: subjectDetail[index][0],
+                          );
+                        },
+                      ),
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(
