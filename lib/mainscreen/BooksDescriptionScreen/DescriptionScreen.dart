@@ -473,65 +473,105 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                                     ? Container()
                                     : Row(
                                         children: [
-                                          Container(
-                                            width: width / 2.8,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Container(
-                                                  height: height / 5,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(23.0),
-                                                      topRight:
-                                                          Radius.circular(23.0),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: ((context) {
+                                                    return DescriptionScreen(
+                                                      categoryId:
+                                                          widget.categoryId,
+                                                      boughtBy: booksLike[index]
+                                                          [12],
+                                                      soldBy: booksLike[index]
+                                                          [5],
+                                                      serialId: booksLike[index]
+                                                          [11],
+                                                      publishDate:
+                                                          booksLike[index][8],
+                                                      noOfPages:
+                                                          booksLike[index][10],
+                                                      description:
+                                                          booksLike[index][6],
+                                                      bookPdf: booksLike[index]
+                                                          [7],
+                                                      bookName: booksLike[index]
+                                                          [0],
+                                                      price: booksLike[index]
+                                                          [1],
+                                                      imageUrl: booksLike[index]
+                                                          [3],
+                                                    );
+                                                  }),
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                              width: width / 2.8,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Container(
+                                                    height: height / 5,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                23.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                23.0),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  child: Stack(
-                                                    children: <Widget>[
-                                                      Center(
-                                                          child:
-                                                              CircularProgressIndicator()),
-                                                      Center(
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    23.0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    23.0),
-                                                          ),
-                                                          child: FadeInImage
-                                                              .memoryNetwork(
-                                                            placeholder:
-                                                                kTransparentImage,
-                                                            image:
-                                                                booksLike[index]
-                                                                    [3],
-                                                            height: height / 5,
-                                                            width: width / 2.8,
-                                                            fit: BoxFit.cover,
+                                                    child: Stack(
+                                                      children: <Widget>[
+                                                        Center(
+                                                            child:
+                                                                CircularProgressIndicator()),
+                                                        Center(
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      23.0),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      23.0),
+                                                            ),
+                                                            child: FadeInImage
+                                                                .memoryNetwork(
+                                                              placeholder:
+                                                                  kTransparentImage,
+                                                              image: booksLike[
+                                                                  index][3],
+                                                              height:
+                                                                  height / 5,
+                                                              width:
+                                                                  width / 2.8,
+                                                              fit: BoxFit.cover,
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  width: width / 2.8,
-                                                  child: Text(
-                                                    booksLike[index][0],
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
+                                                  SizedBox(
+                                                    width: width / 2.8,
+                                                    child: Text(
+                                                      booksLike[index][0],
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ),
                                           SizedBox(
