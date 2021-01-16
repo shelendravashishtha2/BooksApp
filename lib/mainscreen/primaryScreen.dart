@@ -100,7 +100,6 @@ class _FrontPageState extends State<FrontPage> {
                                       ),
                                       onPressed: () =>
                                           Navigator.of(context).pop(false),
-                                      // Navigator.of(context).pop(false),
                                     ),
                                     SizedBox(
                                       width: 20.0,
@@ -444,6 +443,7 @@ class _FrontPageState extends State<FrontPage> {
                       userName: userDetails[00],
                     );
                   },
+                  maintainState: true,
                 ),
               );
             },
@@ -471,6 +471,7 @@ class _FrontPageState extends State<FrontPage> {
                   builder: (context) {
                     return BookRegistration();
                   },
+                  maintainState: true,
                 ),
               );
             },
@@ -498,6 +499,7 @@ class _FrontPageState extends State<FrontPage> {
                   builder: (context) {
                     return MyBooks();
                   },
+                  maintainState: true,
                 ),
               );
             },
@@ -525,6 +527,7 @@ class _FrontPageState extends State<FrontPage> {
                   builder: (context) {
                     return MyCart();
                   },
+                  maintainState: true,
                 ),
               );
             },
@@ -547,9 +550,14 @@ class _FrontPageState extends State<FrontPage> {
             tileColor: Color(0xFF344955),
             onTap: () {
               _auth.signOut();
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return WelcomeScreen();
-              }));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return WelcomeScreen();
+                  },
+                ),
+              );
             },
             leading: Icon(
               Icons.clear,
@@ -627,6 +635,7 @@ class SubjectList extends StatelessWidget {
                             subjectName: subjectDetail[index][0],
                           );
                         },
+                        maintainState: true,
                       ),
                     );
                   },
